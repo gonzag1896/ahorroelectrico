@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahorro Auto PRO+</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Inter',sans-serif;background:#0f172a;color:#e5e7eb}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;background:#020617;padding:24px}
+.sidebar h2{margin-bottom:10px}
+.sidebar p{font-size:13px;color:#94a3b8}
+.main{flex:1;padding:20px}
+.card{background:#111827;padding:20px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
+h1{margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column}
+label{font-size:12px;color:#cbd5f5;margin-bottom:4px}
+input,select{padding:10px;border-radius:10px;border:1px solid #334155;background:#020617;color:#fff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.kpi{padding:18px;border-radius:14px;text-align:center;font-weight:600}
+.nafta{background:#dc2626}
+.elec{background:#2563eb}
+.ahorro{background:#16a34a}
+.extra{background:#1e293b}
+.proyeccion{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}
+.proy{background:#020617;padding:12px;border-radius:10px;text-align:center}
+.highlight{margin-top:20px;padding:15px;border-radius:12px;text-align:center;font-weight:700;font-size:16px}
+.indicador{margin-top:10px;padding:12px;border-radius:12px;text-align:center;font-weight:600}
+.verde{background:#16a34a;color:#022c22}
+.amarillo{background:#eab308;color:#422006}
+.rojo{background:#dc2626;color:#fee2e2}
+.actions{display:flex;gap:10px;margin-top:15px}
+button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+.primary{background:#2563eb;color:#fff}
+.secondary{background:#475569;color:#fff}
+
+@media(max-width:900px){
+.layout{flex-direction:column}
+.sidebar{width:100%}
+.grid{grid-template-columns:1fr}
+.cards{grid-template-columns:1fr}
+.proyeccion{grid-template-columns:1fr 1fr}
+.actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+<div class="sidebar">
+<h2>Ahorro Auto PRO+</h2>
+<p>Simulador para decidir si conviene pasarte a eléctrico</p>
+<p>• Ahorro mensual y anual</p>
+<p>• Comparación real</p>
+<p>• Recupero de inversión</p>
+<p>• Proyección a 5 años</p>
+</div>
+
+<div class="main">
+<div class="card">
+<h1>¿Te conviene pasarte a eléctrico?</h1>
+
+<div class="grid">
+<div class="field">
+<label>Kilómetros por mes</label>
+<input id="km" type="number">
+</div>
+<div class="field">
+<label>Consumo nafta (km/L)</label>
+<input id="consNafta" type="number" value="14">
+</div>
+<div class="field">
+<label>Precio nafta</label>
+<input id="precioNafta" type="number" value="82.27">
+</div>
+<div class="field">
+<label>Tipo de uso</label>
+<select id="tipoUso">
+<option value="ciudad">Ciudad (-10%)</option>
+<option value="mixto" selected>Mixto</option>
+<option value="ruta">Ruta (+10%)</option>
+</select>
+</div>
+<div class="field">
+<label>Precio electricidad (valle + IVA)</label>
+<input id="precioKwh" type="number" value="2.98">
+</div>
+<div class="field">
+<label>Valor a invertir en la compra (USD)</label>
+<input id="precioAuto" type="number">
+</div>
+<div class="field">
+<label>Precio del dólar</label>
+<input id="dolar" type="number" value="40">
+</div>
+</div>
+
+<div class="cards">
+<div class="kpi nafta">Nafta / mes<br><span id="nafta">0</span></div>
+<div class="kpi elec">Eléctrico / mes<br><span id="electrico">0</span></div>
+<div class="kpi ahorro">Ahorro / mes<br><span id="ahorro">0</span></div>
+
+<div class="kpi extra">Nafta anual<br><span id="naftaAnual">0</span></div>
+<div class="kpi extra">Ahorro anual<br><span id="anual">0</span></div>
+<div class="kpi extra">Recupero<br><span id="recupero">-</span></div>
+
+<div class="kpi extra">Costo por km<br><span id="costokm">-</span></div>
+</div>
+
+<div class="proyeccion">
+<div class="proy">1 año<br><span id="y1">0</span></div>
+<div class="proy">2 años<br><span id="y2">0</span></div>
+<div class="proy">3 años<br><span id="y3">0</span></div>
+<div class="proy">4 años<br><span id="y4">0</span></div>
+<div class="proy">5 años<br><span id="y5">0</span></div>
+</div>
+
+<div id="highlight" class="highlight">Resultado inversión</div>
+<div id="indicador" class="indicador">Resultado</div>
+
+<div class="actions">
+<button class="primary" onclick="calcular()">Calcular</button>
+<button class="secondary" onclick="demo()">Demo</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+function animar(id, valor){
+let el=document.getElementById(id);
+let actual=0;
+let paso=valor/20;
+let i=setInterval(()=>{
+actual+=paso;
+if(actual>=valor){actual=valor;clearInterval(i)}
+el.innerText=Math.round(actual);
+},20);
+}
+
+function calcular(){
+const km=val('km');
+let consElec=14.6;
+let tipo=document.getElementById('tipoUso').value;
+if(tipo==='ciudad') consElec*=0.9;
+if(tipo==='ruta') consElec*=1.1;
+
+const nafta=(km/val('consNafta'))*val('precioNafta');
+const elec=(km*consElec/100)*val('precioKwh');
+const ahorro=nafta-elec;
+
+animar('nafta',nafta);
+animar('electrico',elec);
+animar('ahorro',ahorro);
+animar('anual',ahorro*12);
+animar('naftaAnual',nafta*12);
+
+let rec='-';
+if(val('precioAuto')>0 && ahorro>0){
+const precioUYU = val('precioAuto') * val('dolar');
+const meses=(precioUYU/ahorro);
+const anios=(meses/12);
+rec=Math.round(meses)+" meses ("+anios.toFixed(1)+" años)";
+}
+document.getElementById('recupero').innerText=rec;
+
+let costoKmNafta = nafta/km;
+let costoKmElec = elec/km;
+document.getElementById('costokm').innerText = "$" + costoKmNafta.toFixed(2) + " vs $" + costoKmElec.toFixed(2);
+
+for(let i=1;i<=5;i++){animar('y'+i, ahorro*12*i)}
+
+let ahorro5 = ahorro*12*5;
+let inversion = val('precioAuto') * val('dolar');
+let hl = document.getElementById('highlight');
+if(inversion>0){
+if(ahorro5 >= inversion){hl.className='highlight verde';hl.innerText='En 5 años recuperás la inversión y generás ganancia';}
+else{hl.className='highlight amarillo';hl.innerText='En 5 años aún no recuperás la inversión';}
+}else{hl.innerText='Ingresá inversión'}
+
+let ind=document.getElementById('indicador');
+if(ahorro>15000){ind.className='indicador verde';ind.innerText='Conviene mucho'}
+else if(ahorro>5000){ind.className='indicador amarillo';ind.innerText='Conviene'}
+else{ind.className='indicador rojo';ind.innerText='No conviene tanto'}
+}
+
+function demo(){
+document.getElementById('km').value=2000;
+document.getElementById('precioAuto').value=28000;
+calcular();
+}
+
+function val(id){return +document.getElementById(id).value||0}
+</script>
+
+</body>
+</html>
