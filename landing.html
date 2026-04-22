@@ -34,6 +34,7 @@ input,select{padding:10px;border-radius:10px;border:1px solid #334155;background
 button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
 .primary{background:#2563eb;color:#fff}
 .secondary{background:#475569;color:#fff}
+.subcard{background:#020617;padding:15px;border-radius:12px;margin-top:20px;text-align:center}
 @media(max-width:900px){.layout{flex-direction:column}.sidebar{width:100%}.grid,.row2{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.actions{flex-direction:column}}
 </style>
 </head>
@@ -49,91 +50,90 @@ button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;cursor
 <h1>¿Te conviene pasarte a eléctrico?</h1>
 
 <div class="grid">
-  <div class="field">
-    <label>Kilómetros por mes</label>
-    <input id="km" type="number">
-  </div>
-  <div class="field">
-    <label>Consumo nafta (km/L)</label>
-    <input id="consNafta" type="number" value="14">
-  </div>
-  <div class="field">
-    <label>Precio nafta</label>
-    <input id="precioNafta" type="number" value="82.27">
-  </div>
-  <div class="field">
-    <label>Tipo de uso</label>
-    <select id="tipoUso">
-      <option value="ciudad">Ciudad (-10%)</option>
-      <option value="mixto" selected>Mixto</option>
-      <option value="ruta">Ruta (+10%)</option>
-    </select>
-  </div>
-  <div class="field">
-    <label>Precio electricidad</label>
-    <input id="precioKwh" type="number" value="2.98">
-  </div>
-  <div class="field">
-    <label>Valor inversión eléctrico (USD)</label>
-    <input id="precioAuto" type="number">
-  </div>
-  <div class="field">
-    <label>Precio dólar</label>
-    <input id="dolar" type="number" value="40">
-  </div>
+<div class="field">
+<label>Kilómetros por mes</label>
+<input id="km" type="number">
+</div>
+<div class="field">
+<label>Consumo nafta (km/L)</label>
+<input id="consNafta" type="number" value="14">
+</div>
+<div class="field">
+<label>Precio nafta</label>
+<input id="precioNafta" type="number" value="82.27">
+</div>
+<div class="field">
+<label>Tipo de uso</label>
+<select id="tipoUso">
+<option value="ciudad">Ciudad (-10%)</option>
+<option value="mixto" selected>Mixto</option>
+<option value="ruta">Ruta (+10%)</option>
+</select>
+</div>
+<div class="field">
+<label>Precio electricidad</label>
+<input id="precioKwh" type="number" value="2.98">
+</div>
+<div class="field">
+<label>Valor inversión eléctrico (USD)</label>
+<input id="precioAuto" type="number">
+</div>
+<div class="field">
+<label>Precio dólar</label>
+<input id="dolar" type="number" value="40">
+</div>
 </div>
 
 <div class="row2">
-  <div class="field">
-    <label>Patente actual (anual)</label>
-    <input id="patenteNafta" type="number">
-  </div>
-  <div class="field">
-    <label>Patente eléctrico (anual)</label>
-    <input id="patenteElec" type="number">
-  </div>
+<div class="field">
+<label>Patente actual (anual)</label>
+<input id="patenteNafta" type="number">
+</div>
+<div class="field">
+<label>Patente eléctrico (anual)</label>
+<input id="patenteElec" type="number">
+</div>
 </div>
 
 <div class="row2">
-  <div class="field">
-    <label>Seguro actual (mensual)</label>
-    <input id="seguroNafta" type="number">
-  </div>
-  <div class="field">
-    <label>Seguro eléctrico (mensual)</label>
-    <input id="seguroElec" type="number">
-  </div>
+<div class="field">
+<label>Seguro actual (mensual)</label>
+<input id="seguroNafta" type="number">
+</div>
+<div class="field">
+<label>Seguro eléctrico (mensual)</label>
+<input id="seguroElec" type="number">
+</div>
 </div>
 
 <div class="row2">
-  <div class="field">
-    <label>Mantenimiento actual (mensual)</label>
-    <input id="mantNafta" type="number">
-  </div>
-  <div class="field">
-    <label>Mantenimiento eléctrico (mensual)</label>
-    <input id="mantElec" type="number">
-  </div>
+<div class="field">
+<label>Mantenimiento actual (mensual)</label>
+<input id="mantNafta" type="number">
+</div>
+<div class="field">
+<label>Mantenimiento eléctrico (mensual)</label>
+<input id="mantElec" type="number">
+</div>
 </div>
 
 <div class="cards">
-  <div class="kpi nafta">Nafta / mes<br><span id="nafta">0</span></div>
-  <div class="kpi elec">Eléctrico / mes<br><span id="electrico">0</span></div>
-  <div class="kpi ahorro">Ahorro / mes<br><span id="ahorro">0</span></div>
+<div class="kpi nafta">Nafta / mes<br><span id="nafta">0</span></div>
+<div class="kpi elec">Eléctrico / mes<br><span id="electrico">0</span></div>
+<div class="kpi ahorro">Ahorro / mes<br><span id="ahorro">0</span></div>
+<div class="kpi extra">Ahorro total anual<br><span id="totalAnual">0</span></div>
+<div class="kpi compare">Costo total mensual<br><span id="totalMensual">-</span></div>
+<div class="kpi extra">Tiempo recupero<br><span id="kpiRecupero">-</span></div>
+</div>
 
-  <div class="kpi extra">Ahorro patente anual<br><span id="ahorroPatente">0</span></div>
-  <div class="kpi extra">Ahorro seguro anual<br><span id="ahorroSeguro">0</span></div>
-  <div class="kpi extra">Ahorro mantenimiento anual<br><span id="ahorroMant">0</span></div>
-
-  <div class="kpi extra">Ahorro total anual<br><span id="totalAnual">0</span></div>
-
-  <!-- NUEVOS KPI CLAVE -->
-  <div class="kpi compare">Costo total mensual<br><span id="totalMensual">-</span></div>
-  <div class="kpi extra">Tiempo de recupero<br><span id="kpiRecupero">-</span></div>
+<!-- NUEVA CALCULADORA SIMPLE -->
+<div class="subcard">
+<h3>¿Cuánto gasto en cargar el auto?</h3>
+<p><b id="kwh">0</b> kWh / mes</p>
+<p><b id="costoLuz">$0</b> por mes</p>
 </div>
 
 <div id="highlight" class="highlight">Resultado inversión</div>
-<div id="indicador" class="indicador">Resultado</div>
 
 <div class="actions">
 <button class="primary" onclick="calcular()">Calcular</button>
@@ -145,57 +145,49 @@ button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;cursor
 
 <script>
 function calcular(){
-  const km=val('km');
-  let consElec=14.6;
-  let tipo=document.getElementById('tipoUso').value;
-  if(tipo==='ciudad') consElec*=0.9;
-  if(tipo==='ruta') consElec*=1.1;
+const km=val('km');
+let consElec=14.6;
+let tipo=document.getElementById('tipoUso').value;
+if(tipo==='ciudad') consElec*=0.9;
+if(tipo==='ruta') consElec*=1.1;
 
-  const nafta=(km/val('consNafta'))*val('precioNafta');
-  const elec=(km*consElec/100)*val('precioKwh');
-  const ahorroComb=nafta-elec;
+const nafta=(km/val('consNafta'))*val('precioNafta');
+const elec=(km*consElec/100)*val('precioKwh');
+const ahorro=nafta-elec;
 
-  const ahorroPatente = val('patenteNafta') - val('patenteElec');
-  const ahorroSeguro = (val('seguroNafta') - val('seguroElec')) * 12;
-  const ahorroMant = (val('mantNafta') - val('mantElec')) * 12;
+const totalNaftaMensual = nafta + val('seguroNafta') + val('mantNafta') + (val('patenteNafta')/12);
+const totalElecMensual = elec + val('seguroElec') + val('mantElec') + (val('patenteElec')/12);
 
-  const totalAnual = (ahorroComb*12) + ahorroPatente + ahorroSeguro + ahorroMant;
+const totalAnual = (ahorro*12) + (val('patenteNafta')-val('patenteElec')) + ((val('seguroNafta')-val('seguroElec'))*12) + ((val('mantNafta')-val('mantElec'))*12);
 
-  // costo total mensual real
-  const totalNaftaMensual = nafta + (val('seguroNafta')) + (val('mantNafta')) + (val('patenteNafta')/12);
-  const totalElecMensual = elec + (val('seguroElec')) + (val('mantElec')) + (val('patenteElec')/12);
+set('nafta',nafta);
+set('electrico',elec);
+set('ahorro',ahorro);
+set('totalAnual',totalAnual);
 
-  set('nafta',nafta);
-  set('electrico',elec);
-  set('ahorro',ahorroComb);
-  set('ahorroPatente',ahorroPatente);
-  set('ahorroSeguro',ahorroSeguro);
-  set('ahorroMant',ahorroMant);
-  set('totalAnual',totalAnual);
+document.getElementById('totalMensual').innerText = "$" + Math.round(totalNaftaMensual) + " vs $" + Math.round(totalElecMensual);
 
-  document.getElementById('totalMensual').innerText = "$" + Math.round(totalNaftaMensual) + " vs $" + Math.round(totalElecMensual);
+// calculadora luz simple
+let kwh = (km * consElec) / 100;
+let costoLuz = kwh * val('precioKwh');
+document.getElementById('kwh').innerText = Math.round(kwh);
+document.getElementById('costoLuz').innerText = "$" + Math.round(costoLuz);
 
-  let inversion = val('precioAuto') * val('dolar');
-  let hl=document.getElementById('highlight');
+// recupero
+let inversion = val('precioAuto') * val('dolar');
+let rec='-';
+if(inversion>0 && totalAnual>0){
+let meses = inversion / (totalAnual/12);
+let anios = meses / 12;
+rec = Math.round(meses)+" meses ("+anios.toFixed(1)+" años)";
+}
+document.getElementById('kpiRecupero').innerText = rec;
 
-  // KPI TIEMPO DE RECUPERO
-  let recKpi='-';
-  if(inversion>0 && totalAnual>0){
-    let meses = inversion / (totalAnual/12);
-    let anios = meses / 12;
-    recKpi = Math.round(meses) + ' meses (' + anios.toFixed(1) + ' años)';
-  }
-  document.getElementById('kpiRecupero').innerText = recKpi;
-
-  if(inversion>0){
-    if(totalAnual*5 >= inversion){
-      hl.className='highlight verde';
-      hl.innerText='En 5 años recuperás todo y generás ganancia';
-    } else {
-      hl.className='highlight amarillo';
-      hl.innerText='En 5 años aún no recuperás todo';
-    }
-  }
+let hl=document.getElementById('highlight');
+if(inversion>0){
+if(totalAnual*5 >= inversion){hl.className='highlight verde';hl.innerText='En 5 años recuperás todo y generás ganancia';}
+else{hl.className='highlight amarillo';hl.innerText='En 5 años aún no recuperás todo';}
+}
 }
 
 function val(id){return +document.getElementById(id).value||0}
